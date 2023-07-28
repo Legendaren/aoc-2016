@@ -29,7 +29,7 @@ fn transpose(matrix: &Vec<Vec<i32>>) -> Vec<Vec<i32>>{
 fn part1() -> i32 {
     let input = fs::read_to_string("input.txt").expect("Should read file");
     let triangles: Vec<Vec<i32>> = input.lines().map(line_to_triangle).collect();
-    let triangle_count = triangles.iter().map(|triangle| is_triangle(&triangle)).filter(|x| *x).count();
+    let triangle_count = triangles.iter().map(|triangle| is_triangle(&triangle)).filter(|&x| x).count();
     triangle_count as i32
 }
 
@@ -39,7 +39,7 @@ fn part2() -> i32 {
     let triangles_columns = transpose(&triangles_rows);
     let triangles_nums: Vec<i32> = triangles_columns.into_iter().flatten().collect();
     let triangles: Vec<&[i32]> = triangles_nums.chunks(3).collect();
-    let triangle_count = triangles.iter().map(|triangle| is_triangle(triangle)).filter(|x| *x).count();
+    let triangle_count = triangles.into_iter().map(|triangle| is_triangle(&triangle)).filter(|&x| x).count();
     triangle_count as i32
 }
 
