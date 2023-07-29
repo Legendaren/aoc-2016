@@ -28,7 +28,7 @@ fn part2() -> String {
         let hash_input = format!("{}{}", prefix, i);
         let hash = md5::compute(hash_input);
         let hash_str = format!("{:x}", hash);
-        if hash_str.chars().take(5).collect::<String>() == "00000" {
+        if hash_str.chars().take(5).all(|x| x == '0') {
             let position = hash_str.chars().nth(5).unwrap();
             let is_valid_hash = position.is_digit(10)
                 && (0..8).contains(&position.to_digit(10).unwrap())
