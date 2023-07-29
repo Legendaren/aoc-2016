@@ -48,8 +48,8 @@ fn part2() -> String {
 }
 
 fn main() {
-    //let part1_answer = part1();
+    let part1_answer = part1();
     let part2_answer = part2();
-    //println!("{}", part1_answer);
+    println!("{}", part1_answer);
     println!("{}", part2_answer);
 }
