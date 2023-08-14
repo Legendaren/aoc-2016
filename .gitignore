@@ -16,3 +16,4 @@ Cargo.lock
 
 *.txt
 .vscode
+node_modules/
