@@ -32,12 +32,37 @@ fn decompress(input: &str) -> String {
     }
 }
 
+fn decompress_v2(input: &str) -> usize {
+    let re = Regex::new(r"\((?P<letter_count>\d+)x(?P<reps>\d+)\)").unwrap();
+    if let Some(caps) = re.captures(input) {
+        let marker_start_index = input.chars().position(|x| x == '(').unwrap();
+        let marker_stop_index = input.chars().position(|x| x == ')').unwrap();
+        let letter_count = caps["letter_count"].parse::<usize>().unwrap();
+        let reps = caps["reps"].parse::<usize>().unwrap();
+        let suffix_start = marker_stop_index + 1;
+        let suffix_end = suffix_start + letter_count;
+        let res = marker_start_index
+            + decompress_v2(&input[suffix_start..suffix_end]) * reps
+            + decompress_v2(&input[suffix_end..]);
+        return res;
+    }
+    return input.len();
+}
+
 fn part1() -> String {
     let input = fs::read_to_string("input.txt").unwrap();
     decompress(&input)
 }
 
+fn part2() -> usize {
+    let input = fs::read_to_string("input.txt").unwrap();
+    decompress_v2(&input)
+}
+
 fn main() {
     let part1_answer = part1();
     println!("part 1 answer: {}", part1_answer.len());
+
+    let part2_answer = part2();
+    println!("part 2 answer: {}", part2_answer);
 }
